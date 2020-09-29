@@ -39,6 +39,8 @@ func NewTpl(
 		extFuncMap:make(map[string]interface{}),
 		subTpl:make([]string, 0),
 	}
+	//inter init
+	this.interInit()
 	return this
 }
 
