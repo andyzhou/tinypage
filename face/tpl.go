@@ -165,7 +165,8 @@ func (f *Tpl) parse(
 
 	//common tpl files
 	commonTplFiles := make([]string, 0)
-	commonTplFiles = append(commonTplFiles, f.tplPath, mainTpl)
+	commonTplFiles = append(commonTplFiles, f.subTpl...)
+	commonTplFiles = append(commonTplFiles, mainTpl)
 
 	//parse tpl file
 	tpl, err := tpl.ParseFiles(commonTplFiles...)
