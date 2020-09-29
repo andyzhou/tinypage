@@ -193,6 +193,16 @@ func (f *Tpl) addFuncMap(
 	return true
 }
 
+//inter init
+func (f *Tpl) interInit() {
+	//add inter ext functions
+	f.addInterExtFunc()
+}
+
+///////////////////
+//inter tpl ext func
+///////////////////
+
 //convert time stamp to date
 func (f *Tpl) timeStamp2Date(timeStamp int64) string {
 	dateTime := time.Unix(timeStamp, 0).Format(define.TimeLayOut)
@@ -223,10 +233,6 @@ func (f *Tpl) timeStampToDayStr(timeStamp int64) string {
 func (f *Tpl) timeStamp2DateTime(timeStamp int64) string {
 	return time.Unix(timeStamp, 0).Format(define.TimeLayOut)
 }
-
-///////////////////
-//inter tpl ext func
-///////////////////
 
 //add inter tpl ext func
 func (f *Tpl) addInterExtFunc() {

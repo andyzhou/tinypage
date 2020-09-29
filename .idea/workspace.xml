@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5beb5298-9031-422a-80a9-a7089c9a914d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/face/tpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/face/tpl.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -72,13 +71,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/face/tpl.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="574">
-              <caret line="168" column="51" selection-start-line="168" selection-start-column="51" selection-end-line="168" selection-end-column="51" />
+            <state relative-caret-position="438">
+              <caret line="197" column="29" selection-start-line="197" selection-start-column="29" selection-end-line="197" selection-end-column="29" />
               <folding>
                 <element signature="n#!!block;n#GenOnePage#0" />
                 <element signature="n#!!block;n#AddSubTpl#0" />
-                <element signature="n#!!block;n#TimeStamp2Date#0" />
-                <element signature="n#!!block;n#TimeStampToDayStr#0" />
                 <element signature="n#!!block;n#funcOfDateTime#0" />
                 <element signature="n#!!block;n#funcOfDayTime#0" />
                 <element signature="n#!!block;n#funcOfDate#0" />
@@ -384,13 +381,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/face/tpl.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="168" column="51" selection-start-line="168" selection-start-column="51" selection-end-line="168" selection-end-column="51" />
+        <state relative-caret-position="438">
+          <caret line="197" column="29" selection-start-line="197" selection-start-column="29" selection-end-line="197" selection-end-column="29" />
           <folding>
             <element signature="n#!!block;n#GenOnePage#0" />
             <element signature="n#!!block;n#AddSubTpl#0" />
-            <element signature="n#!!block;n#TimeStamp2Date#0" />
-            <element signature="n#!!block;n#TimeStampToDayStr#0" />
             <element signature="n#!!block;n#funcOfDateTime#0" />
             <element signature="n#!!block;n#funcOfDayTime#0" />
             <element signature="n#!!block;n#funcOfDate#0" />
