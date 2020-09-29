@@ -123,13 +123,11 @@ func (f *Tpl) genStaticPage(
 							f.staticPath,
 							subDir,
 							pageFile,
-							define.StaticPageExt,
 						)
 	}else{
 		pageFilePath = fmt.Sprintf("%s/%s%s",
 							f.staticPath,
 							pageFile,
-							define.StaticPageExt,
 						)
 	}
 

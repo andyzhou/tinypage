@@ -15,5 +15,6 @@ type IProcess interface {
 		dataMap map[string]interface{},
 	) bool
 	GetTplFace() ITpl
+	RegisterAutoGen(tag string, rate int, cb func()) bool
 	SetCallBack(cb func(pageFile string, pageData []byte) bool) bool
 }

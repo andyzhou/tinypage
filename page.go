@@ -44,6 +44,15 @@ func (f *Page) GenPage(
 	return f.process.GenPage(tplFile, subDir, pageFile, dataMap)
 }
 
+//register auto gen page func
+func (f *Page) RegisterAutoGen(
+					tag string,
+					rate int,
+					cb func(),
+				) bool {
+	return f.process.RegisterAutoGen(tag, rate, cb)
+}
+
 //add tpl ext func
 func (f *Page) AddExtFunc(
 				tag string,

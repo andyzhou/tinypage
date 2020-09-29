@@ -56,9 +56,17 @@ func main() {
 	//init api face
 	page := tinyPage.NewPage(TplPath, StaticPath)
 
+	//register auto gen
+	page.RegisterAutoGen("test", 10, nil)
+
 	//add tpl ext func
 	page.AddExtFunc("html", nil)
 
+	//add sub tpl
+	page.AddSubTpl("test.tpl")
+
+	//gen page
+	page.GenPage("test.tpl", "test", "test.html", nil)
 
 	//start wait group
 	wg.Add(1)
