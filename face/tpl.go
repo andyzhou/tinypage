@@ -1,9 +1,9 @@
 package face
 
 import (
+	"errors"
 	"fmt"
 	"github.com/andyzhou/tinyPage/define"
-	"github.com/pkg/errors"
 	"html/template"
 	"io/ioutil"
 	"log"
