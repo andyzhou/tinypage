@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/andyzhou/tinyPage"
+	"github.com/andyzhou/tinypage"
 	"log"
 	"os"
 	"os/signal"
@@ -54,7 +54,7 @@ func main() {
 	}(&wg)
 
 	//init api face
-	page := tinyPage.NewPage(TplPath, StaticPath)
+	page := tinypage.NewPage(TplPath, StaticPath)
 
 	//register auto gen
 	page.RegisterAutoGen("test", 10, nil)

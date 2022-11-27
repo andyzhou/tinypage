@@ -3,7 +3,7 @@ package face
 import (
 	"errors"
 	"fmt"
-	"github.com/andyzhou/tinyPage/define"
+	"github.com/andyzhou/tinypage/define"
 	"html/template"
 	"io/ioutil"
 	"log"

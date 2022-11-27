@@ -1,8 +1,8 @@
-package tinyPage
+package tinypage
 
 import (
-	"github.com/andyzhou/tinyPage/face"
-	"github.com/andyzhou/tinyPage/iface"
+	"github.com/andyzhou/tinypage/face"
+	"github.com/andyzhou/tinypage/iface"
 )
 
 /*
@@ -18,10 +18,7 @@ type Page struct {
 }
 
 //construct
-func NewPage(
-		tplPath string,
-		staticPath string,
-	) *Page {
+func NewPage(tplPath, staticPath string) *Page {
 	//self init
 	this := &Page{
 		process:face.NewProcess(tplPath, staticPath),

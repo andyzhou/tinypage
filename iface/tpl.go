@@ -7,13 +7,7 @@ package iface
  */
 
 type ITpl interface {
-	GenOnePage(
-			mainTplFile, subDir, pageFile string,
-			data interface{},
-		) ([]byte, error)
+	GenOnePage(mainTplFile, subDir, pageFile string, data interface{}) ([]byte, error)
 	AddSubTpl(tplFile string) bool
-	AddExtFunc(
-			tag string,
-			fun interface{},
-		) bool
+	AddExtFunc(tag string, fun interface{}) bool
 }

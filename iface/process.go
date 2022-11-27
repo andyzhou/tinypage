@@ -8,10 +8,7 @@ package iface
 
 type IProcess interface {
 	Quit()
-	GenPage(
-		tplFile string,
-		subDir string,
-		pageFile string,
+	GenPage(tplFile, subDir, pageFile string,
 		dataMap map[string]interface{},
 	) bool
 	GetTplFace() ITpl

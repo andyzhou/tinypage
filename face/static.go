@@ -2,7 +2,7 @@ package face
 
 import (
 	"fmt"
-	"github.com/andyzhou/tinyPage/iface"
+	"github.com/andyzhou/tinypage/iface"
 	"log"
 	"os"
 )

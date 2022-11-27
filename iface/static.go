@@ -8,8 +8,8 @@ package iface
 
 type IStatic interface {
 	GenPage(
-		tplFile string,
-		subDir string,
+		tplFile,
+		subDir,
 		pageFile string,
 		dataMap map[string]interface{},
 		tplFace ITpl,

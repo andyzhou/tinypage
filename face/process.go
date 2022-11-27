@@ -1,8 +1,8 @@
 package face
 
 import (
-	"github.com/andyzhou/tinyPage/define"
-	"github.com/andyzhou/tinyPage/iface"
+	"github.com/andyzhou/tinypage/define"
+	"github.com/andyzhou/tinypage/iface"
 	"log"
 	"sync"
 	"time"
