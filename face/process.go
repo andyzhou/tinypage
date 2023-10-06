@@ -1,6 +1,7 @@
 package face
 
 import (
+	"errors"
 	"github.com/andyzhou/tinypage/define"
 	"github.com/andyzhou/tinypage/iface"
 	"log"
@@ -35,25 +36,21 @@ type Process struct {
 	cb func(pageFile string, pageData []byte) bool
 	autoMap map[string]tinyAutoGen
 	tickerMap *sync.Map
+	initDone bool
 	reqChan chan tinyPageReq
 	closeChan chan bool
-	autoChan chan bool
+	autoCloseChan chan bool
 }
 
 //construct
-func NewProcess(
-			tplPath string,
-			staticPath string,
-		) *Process {
+func NewProcess() *Process {
 	//self init
 	this := &Process{
-		tpl:NewTpl(tplPath, staticPath),
-		static:NewStatic(staticPath),
 		autoMap:make(map[string]tinyAutoGen),
 		tickerMap:new(sync.Map),
 		reqChan:make(chan tinyPageReq, define.TinyPageChanSize),
 		closeChan:make(chan bool, 1),
-		autoChan:make(chan bool, 1),
+		autoCloseChan:make(chan bool, 1),
 	}
 	//spawn main process
 	go this.runMainProcess()
@@ -65,8 +62,12 @@ func NewProcess(
 
 //quit
 func (f *Process) Quit() {
-	f.closeChan <- true
-	f.autoChan <- true
+	if f.closeChan != nil {
+		f.closeChan <- true
+	}
+	if f.autoCloseChan != nil {
+		f.autoCloseChan <- true
+	}
 }
 
 //get tpl face
@@ -80,18 +81,19 @@ func (f *Process) GenPage(
 					subDir string,
 					pageFile string,
 					dataMap map[string]interface{},
-				) (bRet bool) {
+				) error {
 	//basic check
 	if tplFile == "" || pageFile == "" || dataMap == nil {
-		bRet = false
-		return
+		return errors.New("invalid parameter")
+	}
+	if !f.initDone {
+		return errors.New("core tpl and page path not setup")
 	}
 
 	//try catch panic
 	defer func() {
 		if err := recover(); err != nil {
-			log.Println("Process::GenPage panic, err:", err)
-			bRet = false
+			log.Println("tinyPage.Process::GenPage panic, err:", err)
 			return
 		}
 	}()
@@ -106,8 +108,7 @@ func (f *Process) GenPage(
 
 	//send to chan
 	f.reqChan <- req
-	bRet = true
-	return
+	return nil
 }
 
 //register auto generate page func
@@ -115,10 +116,10 @@ func (f *Process) RegisterAutoGen(
 					tag string,
 					rate int,
 					cb func(),
-				) bool {
+				) error {
 	//basic check
 	if tag == "" || cb == nil {
-		return false
+		return errors.New("invalid parameter")
 	}
 
 	//check and set default value
@@ -133,7 +134,7 @@ func (f *Process) RegisterAutoGen(
 	}
 	f.autoMap[tag] = autoGen
 	f.tickerMap.Store(tag, time.Now().Unix())
-	return true
+	return nil
 }
 
 //set callback for gen page success
@@ -151,6 +152,21 @@ func (f *Process) SetCallBack(
 	return true
 }
 
+//set core path
+func (f *Process) SetCorePath(tplPath, staticPath string) error {
+	//check
+	if tplPath == "" || staticPath == "" {
+		return errors.New("invalid path parameter")
+	}
+	if f.initDone {
+		return errors.New("path had init")
+	}
+	//init tpl and static obj
+	f.tpl = NewTpl(tplPath, staticPath)
+	f.static = NewStatic(staticPath)
+	f.initDone = true
+	return nil
+}
 
 ///////////////
 //private func
@@ -160,49 +176,57 @@ func (f *Process) SetCallBack(
 func (f *Process) runMainProcess() {
 	var (
 		req tinyPageReq
-		needQuit, isOk bool
+		isOk bool
 	)
+
+	//defer
+	defer func() {
+		if err := recover(); err != nil {
+			log.Printf("tinypage.process panic, err:%v\n", err)
+		}
+		//close chan
+		close(f.reqChan)
+		close(f.closeChan)
+	}()
 
 	//loop
 	for {
-		if needQuit && len(f.reqChan) <= 0 {
-			break
-		}
 		select {
 		case req, isOk = <- f.reqChan:
-			if isOk {
+			if isOk && &req != nil {
 				f.genPageProcess(&req)
 			}
 		case <- f.closeChan:
-			needQuit = true
+			return
 		}
 	}
-
-	//close chan
-	close(f.reqChan)
-	close(f.closeChan)
 }
 
 //run auto gen process
 func (f *Process) runAutoGenProcess() {
 	var (
 		ticker = time.NewTicker(time.Second * define.TinyPageAutoGenRate)
-		needQuit bool
 	)
+
+	//defer
+	defer func() {
+		if err := recover(); err != nil {
+			log.Printf("tinyPage.process panic, err:%v\n", err)
+		}
+		ticker.Stop()
+		//close chan
+		close(f.autoCloseChan)
+	}()
+
 	//loop
 	for {
-		if needQuit {
-			break
-		}
 		select {
 		case <- ticker.C:
 			f.autoGenProcess()
-		case <- f.autoChan:
-			needQuit = true
+		case <- f.autoCloseChan:
+			return
 		}
 	}
-	//close chan
-	close(f.autoChan)
 }
 
 //process auto gen page opt
@@ -245,22 +269,22 @@ func (f *Process) autoGenProcess() bool {
 //process page generate opt
 func (f *Process) genPageProcess(
 					req *tinyPageReq,
-				) bool {
+				) error {
 	//basic check
 	if req == nil {
-		return false
+		return errors.New("invalid parameter")
 	}
 
-	//try generate page file
-	pageData, bRet := f.static.GenPage(
+	//generate page file
+	pageData, err := f.static.GenPage(
 							req.tplFile,
 							req.subDir,
 							req.pageFile,
 							req.dataMap,
 							f.tpl,
 						)
-	if !bRet {
-		return false
+	if err != nil {
+		return err
 	}
 
 	//run call back
@@ -268,7 +292,7 @@ func (f *Process) genPageProcess(
 		f.cb(req.pageFile, pageData)
 	}
 
-	return true
+	return nil
 }
 
 //get last ticker time

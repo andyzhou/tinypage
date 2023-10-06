@@ -17,8 +17,8 @@ import (
  */
 
 const (
-	TplPath = "/data/tpl"
-	StaticPath = "/data/html"
+	TplPath = "./tpl"
+	StaticPath = "./html"
 
 )
 
@@ -54,7 +54,10 @@ func main() {
 	}(&wg)
 
 	//init api face
-	page := tinypage.NewPage(TplPath, StaticPath)
+	page := tinypage.NewPage()
+
+	//set core path
+	page.SetCorPath(TplPath, StaticPath)
 
 	//register auto gen
 	page.RegisterAutoGen("test", 10, nil)
@@ -71,7 +74,6 @@ func main() {
 	//start wait group
 	wg.Add(1)
 	fmt.Println("start example...")
-
 
 	wg.Wait()
 	page.Quit()

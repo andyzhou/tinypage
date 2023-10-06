@@ -13,5 +13,5 @@ type IStatic interface {
 		pageFile string,
 		dataMap map[string]interface{},
 		tplFace ITpl,
-	) ([]byte, bool)
+	) ([]byte, error)
 }

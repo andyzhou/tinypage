@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -20,17 +23,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5beb5298-9031-422a-80a9-a7089c9a914d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/tinyPage.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/tinyPage.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/define/global.go" beforeDir="false" afterPath="$PROJECT_DIR$/define/global.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/example/client.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/face/process.go" beforeDir="false" afterPath="$PROJECT_DIR$/face/process.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/face/static.go" beforeDir="false" afterPath="$PROJECT_DIR$/face/static.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/face/tpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/face/tpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/iface/process.go" beforeDir="false" afterPath="$PROJECT_DIR$/iface/process.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iface/static.go" beforeDir="false" afterPath="$PROJECT_DIR$/iface/static.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iface/tpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/iface/tpl.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/page.go" beforeDir="false" afterPath="$PROJECT_DIR$/page.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +44,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="/usr/local/go" />
+  <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -59,12 +58,6 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="875" />
-    <option name="y" value="23" />
-    <option name="width" value="905" />
-    <option name="height" value="1138" />
-  </component>
   <component name="ProjectId" id="2I6yymtoJv1IbGqjK88rNcUVhRB" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -75,15 +68,21 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable..is.expanded" value="false" />
+    <property name="configurable.GoLibrariesConfigurable.is.expanded" value="true" />
+    <property name="go.formatter.settings.were.checked" value="true" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
+    <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="go.vgo" />
+    <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoProjectSettingsConfigurable" />
   </component>
   <component name="RunManager">
     <configuration name="tinypage" type="GoApplicationRunConfiguration" factoryName="Go Application">
@@ -91,15 +90,16 @@
       <working_directory value="$PROJECT_DIR$/example" />
       <go_parameters value="-i" />
       <kind value="DIRECTORY" />
-      <filePath value="$PROJECT_DIR$/" />
       <package value="github.com/andyzhou/tinyPage" />
       <directory value="$PROJECT_DIR$/example" />
+      <filePath value="$PROJECT_DIR$/" />
       <output_directory value="$PROJECT_DIR$/example" />
       <method v="2" />
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -111,15 +111,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="440" y="129" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1669516733042">
-      <screen x="0" y="23" width="1536" height="891" />
-    </state>
-    <state x="440" y="129" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1536.891@0.23.1536.891" timestamp="1669516733042" />
-    <state x="477" y="106" key="SettingsEditor" timestamp="1669516644371">
-      <screen x="0" y="23" width="1536" height="891" />
-    </state>
-    <state x="477" y="106" key="SettingsEditor/0.23.1536.891@0.23.1536.891" timestamp="1669516644371" />
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

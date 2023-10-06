@@ -1,6 +1,7 @@
 package face
 
 import (
+	"errors"
 	"fmt"
 	"github.com/andyzhou/tinypage/iface"
 	"log"
@@ -36,28 +37,30 @@ func (f *Static) GenPage(
 					pageFile string,
 					dataMap map[string]interface{},
 					tplFace iface.ITpl,
-				) ([]byte, bool) {
+				) ([]byte, error) {
 	//basic check
 	if tplFile == "" || pageFile == "" {
-		return nil, false
+		return nil, errors.New("invalid parameter")
 	}
 	if dataMap == nil || tplFace == nil {
-		return nil, false
+		return nil, errors.New("invalid parameter")
 	}
 
 	//check or create sub dir
 	if subDir != "" {
-		f.checkOrCreateDir(subDir)
+		err := f.checkOrCreateDir(subDir)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	//begin generate page
 	pageData, err := tplFace.GenOnePage(tplFile, subDir, pageFile, dataMap)
 	if err != nil {
 		log.Println("Page::GenStaticPage failed, err:", err.Error())
-		return nil, false
+		return nil, err
 	}
-
-	return pageData, true
+	return pageData, nil
 }
 
 ///////////////
@@ -67,9 +70,9 @@ func (f *Static) GenPage(
 //check or create page dir
 func (f *Static) checkOrCreateDir(
 					subDir string,
-				) bool {
+				) error {
 	if subDir == "" {
-		return false
+		return errors.New("invalid sub dir parameter")
 	}
 
 	//check or create
@@ -77,10 +80,9 @@ func (f *Static) checkOrCreateDir(
 	err := f.checkOrCreateOneDir(subDirPath)
 	if err != nil {
 		log.Println("PageFace::checkOrCreateDir failed, err:", err.Error())
-		return false
+		return err
 	}
-
-	return true
+	return nil
 }
 
 //check or create dir

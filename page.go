@@ -1,6 +1,7 @@
 package tinypage
 
 import (
+	"errors"
 	"github.com/andyzhou/tinypage/face"
 	"github.com/andyzhou/tinypage/iface"
 )
@@ -18,10 +19,10 @@ type Page struct {
 }
 
 //construct
-func NewPage(tplPath, staticPath string) *Page {
+func NewPage() *Page {
 	//self init
 	this := &Page{
-		process:face.NewProcess(tplPath, staticPath),
+		process:face.NewProcess(),
 	}
 	return this
 }
@@ -37,7 +38,7 @@ func (f *Page) GenPage(
 				subDir string,
 				pageFile string,
 				dataMap map[string]interface{},
-			) bool {
+			) error {
 	return f.process.GenPage(tplFile, subDir, pageFile, dataMap)
 }
 
@@ -46,7 +47,7 @@ func (f *Page) RegisterAutoGen(
 					tag string,
 					rate int,
 					cb func(),
-				) bool {
+				) error {
 	return f.process.RegisterAutoGen(tag, rate, cb)
 }
 
@@ -73,4 +74,13 @@ func (f *Page) AddSubTpl(
 		return false
 	}
 	return tplFace.AddSubTpl(tplFile)
+}
+
+//setup core path
+func (f *Page) SetCorPath(tplPath, pagePath string) error {
+	//check
+	if tplPath == "" || pagePath == "" {
+		return errors.New("invalid path parameter")
+	}
+	return f.process.SetCorePath(tplPath, pagePath)
 }
