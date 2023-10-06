@@ -64,16 +64,16 @@ func (f *Page) AddExtFunc(
 	return tplFace.AddExtFunc(tag, fun)
 }
 
-//add sub tpl
-func (f *Page) AddSubTpl(
+//add shared tpl
+func (f *Page) AddSharedTpl(
 					tplFile string,
-				) bool {
+				) error {
 	//get tpl face
 	tplFace := f.process.GetTplFace()
 	if tplFace == nil {
-		return false
+		return errors.New("tpl face not init")
 	}
-	return tplFace.AddSubTpl(tplFile)
+	return tplFace.AddSharedTpl(tplFile)
 }
 
 //setup core path

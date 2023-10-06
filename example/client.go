@@ -65,8 +65,8 @@ func main() {
 	//add tpl ext func
 	page.AddExtFunc("html", nil)
 
-	//add sub tpl
-	page.AddSubTpl("test.tpl")
+	//add shared tpl
+	page.AddSharedTpl("test.tpl")
 
 	//gen page
 	page.GenPage("test.tpl", "test", "test.html", nil)

@@ -24,7 +24,7 @@ type Tpl struct {
 	tplPath string
 	staticPath string
 	extFuncMap map[string]interface{}
-	subTpl []string
+	sharedTpl []string
 }
 
 //construct
@@ -37,7 +37,7 @@ func NewTpl(
 		tplPath:tplPath,
 		staticPath:staticPath,
 		extFuncMap:make(map[string]interface{}),
-		subTpl:make([]string, 0),
+		sharedTpl:make([]string, 0),
 	}
 	//inter init
 	this.interInit()
@@ -70,18 +70,34 @@ func (f *Tpl) GenOnePage(
 	return f.genStaticPage(subDir, pageFile, tpl, data)
 }
 
-//add sub tpl
-func (f *Tpl) AddSubTpl(
+//reset shared tpl
+func (f *Tpl) ResetSharedTpl() {
+	f.sharedTpl = make([]string, 0)
+}
+
+//add shared tpl
+func (f *Tpl) AddSharedTpl(
 				tplFile string,
-			) bool {
+			) error {
 	//basic check
 	if tplFile == "" {
-		return false
+		return errors.New("invalid parameter")
 	}
-	//add into running sub tpl slice
 	tplFile = fmt.Sprintf("%s/%s", f.tplPath, tplFile)
-	f.subTpl = append(f.subTpl, tplFile)
-	return true
+	found := false
+	for _, v := range f.sharedTpl {
+		if v == tplFile {
+			found = true
+			break
+		}
+	}
+	if found {
+		return errors.New("tpl file has exists")
+	}
+
+	//add into shared tpl slice
+	f.sharedTpl = append(f.sharedTpl, tplFile)
+	return nil
 }
 
 //add extend func
@@ -169,7 +185,7 @@ func (f *Tpl) parse(
 
 	//common tpl files
 	commonTplFiles := make([]string, 0)
-	commonTplFiles = append(commonTplFiles, f.subTpl...)
+	commonTplFiles = append(commonTplFiles, f.sharedTpl...)
 	commonTplFiles = append(commonTplFiles, mainTpl)
 
 	//parse tpl file
