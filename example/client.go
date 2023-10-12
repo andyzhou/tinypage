@@ -57,7 +57,7 @@ func main() {
 	page := tinypage.NewPage()
 
 	//set core path
-	page.SetCorPath(TplPath, StaticPath)
+	page.SetCorePath(TplPath, StaticPath)
 
 	//register auto gen
 	page.RegisterAutoGen("test", 10, nil)

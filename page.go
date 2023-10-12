@@ -77,7 +77,7 @@ func (f *Page) AddSharedTpl(
 }
 
 //setup core path
-func (f *Page) SetCorPath(tplPath, pagePath string) error {
+func (f *Page) SetCorePath(tplPath, pagePath string) error {
 	//check
 	if tplPath == "" || pagePath == "" {
 		return errors.New("invalid path parameter")
