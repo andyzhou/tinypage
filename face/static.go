@@ -20,9 +20,7 @@ type Static struct {
 }
 
 //construct
-func NewStatic(
-		staticPath string,
-	) *Static {
+func NewStatic(staticPath string) *Static {
 	//self init
 	this := &Static{
 		staticPath:staticPath,
@@ -32,12 +30,12 @@ func NewStatic(
 
 //generate static page
 func (f *Static) GenPage(
-					tplFile string,
-					subDir string,
-					pageFile string,
-					dataMap map[string]interface{},
-					tplFace iface.ITpl,
-				) ([]byte, error) {
+		tplFile,
+		subDir,
+		pageFile string,
+		dataMap map[string]interface{},
+		tplFace iface.ITpl,
+	) ([]byte, error) {
 	//basic check
 	if tplFile == "" || pageFile == "" {
 		return nil, errors.New("invalid parameter")
@@ -68,9 +66,7 @@ func (f *Static) GenPage(
 ///////////////
 
 //check or create page dir
-func (f *Static) checkOrCreateDir(
-					subDir string,
-				) error {
+func (f *Static) checkOrCreateDir(subDir string) error {
 	if subDir == "" {
 		return errors.New("invalid sub dir parameter")
 	}
@@ -86,9 +82,7 @@ func (f *Static) checkOrCreateDir(
 }
 
 //check or create dir
-func (f *Static) checkOrCreateOneDir(
-					dir string,
-				) error {
+func (f *Static) checkOrCreateOneDir(dir string) error {
 	_, err := os.Stat(dir)
 	if err == nil {
 		return err

@@ -17,10 +17,10 @@ import (
 
 //inter request
 type tinyPageReq struct {
-	tplFile string
-	subDir string
+	tplFile  string
+	subDir   string
 	pageFile string
-	dataMap map[string]interface{}
+	dataMap  map[string]interface{}
 }
 
 //inter auto gen
@@ -31,14 +31,14 @@ type tinyAutoGen struct {
 
 //face info
 type Process struct {
-	tpl iface.ITpl
-	static iface.IStatic
-	cb func(pageFile string, pageData []byte) bool
-	autoMap map[string]tinyAutoGen
-	tickerMap *sync.Map
-	initDone bool
-	reqChan chan tinyPageReq
-	closeChan chan bool
+	tpl           iface.ITpl
+	static        iface.IStatic
+	cb            func(pageFile string, pageData []byte) bool
+	autoMap       map[string]tinyAutoGen
+	tickerMap     *sync.Map
+	initDone      bool
+	reqChan       chan tinyPageReq
+	closeChan     chan bool
 	autoCloseChan chan bool
 }
 
@@ -77,11 +77,14 @@ func (f *Process) GetTplFace() iface.ITpl {
 
 //generate static page
 func (f *Process) GenPage(
-					tplFile string,
-					subDir string,
-					pageFile string,
-					dataMap map[string]interface{},
-				) error {
+		tplFile,
+		subDir,
+		pageFile string,
+		dataMap map[string]interface{},
+	) error {
+	var (
+		m any = nil
+	)
 	//basic check
 	if tplFile == "" || pageFile == "" || dataMap == nil {
 		return errors.New("invalid parameter")
@@ -92,7 +95,7 @@ func (f *Process) GenPage(
 
 	//try catch panic
 	defer func() {
-		if err := recover(); err != nil {
+		if err := recover(); err != m {
 			log.Println("tinyPage.Process::GenPage panic, err:", err)
 			return
 		}
@@ -113,10 +116,10 @@ func (f *Process) GenPage(
 
 //register auto generate page func
 func (f *Process) RegisterAutoGen(
-					tag string,
-					rate int,
-					cb func(),
-				) error {
+		tag string,
+		rate int,
+		cb func(),
+	) error {
 	//basic check
 	if tag == "" || cb == nil {
 		return errors.New("invalid parameter")
@@ -139,8 +142,8 @@ func (f *Process) RegisterAutoGen(
 
 //set callback for gen page success
 func (f *Process) SetCallBack(
-					cb func(pageFile string, pageData []byte) bool,
-				) bool {
+		cb func(pageFile string, pageData []byte) bool,
+	) bool {
 	//basic check
 	if cb == nil {
 		return false
@@ -177,11 +180,12 @@ func (f *Process) runMainProcess() {
 	var (
 		req tinyPageReq
 		isOk bool
+		m any = nil
 	)
 
 	//defer
 	defer func() {
-		if err := recover(); err != nil {
+		if err := recover(); err != m {
 			log.Printf("tinypage.process panic, err:%v\n", err)
 		}
 		//close chan
@@ -205,12 +209,13 @@ func (f *Process) runMainProcess() {
 //run auto gen process
 func (f *Process) runAutoGenProcess() {
 	var (
+		m any = nil
 		ticker = time.NewTicker(time.Second * define.TinyPageAutoGenRate)
 	)
 
 	//defer
 	defer func() {
-		if err := recover(); err != nil {
+		if err := recover(); err != m {
 			log.Printf("tinyPage.process panic, err:%v\n", err)
 		}
 		ticker.Stop()
@@ -262,14 +267,11 @@ func (f *Process) autoGenProcess() bool {
 		//sync last ticker
 		f.tickerMap.Store(tag, now)
 	}
-
 	return true
 }
 
 //process page generate opt
-func (f *Process) genPageProcess(
-					req *tinyPageReq,
-				) error {
+func (f *Process) genPageProcess(req *tinyPageReq) error {
 	//basic check
 	if req == nil {
 		return errors.New("invalid parameter")
@@ -296,9 +298,7 @@ func (f *Process) genPageProcess(
 }
 
 //get last ticker time
-func (f *Process) getLastTickerTime(
-					tag string,
-				) int64 {
+func (f *Process) getLastTickerTime(tag string) int64 {
 	var (
 		lastTime int64
 	)

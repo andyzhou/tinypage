@@ -34,28 +34,28 @@ func (f *Page) Quit() {
 
 //generate static page
 func (f *Page) GenPage(
-				tplFile string,
-				subDir string,
-				pageFile string,
-				dataMap map[string]interface{},
-			) error {
+		tplFile string,
+		subDir string,
+		pageFile string,
+		dataMap map[string]interface{},
+	) error {
 	return f.process.GenPage(tplFile, subDir, pageFile, dataMap)
 }
 
 //register auto gen page func
 func (f *Page) RegisterAutoGen(
-					tag string,
-					rate int,
-					cb func(),
-				) error {
+		tag string,
+		rate int,
+		cb func(),
+	) error {
 	return f.process.RegisterAutoGen(tag, rate, cb)
 }
 
 //add tpl ext func
 func (f *Page) AddExtFunc(
-				tag string,
-				fun func(arg ...interface{})interface{},
-			) bool {
+		tag string,
+		fun func(arg ...interface{})interface{},
+	) bool {
 	//get tpl face
 	tplFace := f.process.GetTplFace()
 	if tplFace == nil {
@@ -66,8 +66,8 @@ func (f *Page) AddExtFunc(
 
 //add shared tpl
 func (f *Page) AddSharedTpl(
-					tplFile string,
-				) error {
+		tplFile string,
+	) error {
 	//get tpl face
 	tplFace := f.process.GetTplFace()
 	if tplFace == nil {

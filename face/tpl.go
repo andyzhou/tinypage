@@ -21,17 +21,14 @@ import (
 
 //face info
 type Tpl struct {
-	tplPath string
+	tplPath    string
 	staticPath string
 	extFuncMap map[string]interface{}
-	sharedTpl []string
+	sharedTpl  []string
 }
 
 //construct
-func NewTpl(
-			tplPath string,
-			staticPath string,
-		) *Tpl {
+func NewTpl(tplPath, staticPath string) *Tpl {
 	//self init
 	this := &Tpl{
 		tplPath:tplPath,
@@ -46,15 +43,11 @@ func NewTpl(
 
 //generate one static page
 func (f *Tpl) GenOnePage(
-				mainTplFile string,
-				subDir string,
-				pageFile string,
-				data interface{},
-			) ([]byte, error) {
-	var (
-		err error
-	)
-
+		mainTplFile string,
+		subDir string,
+		pageFile string,
+		data interface{},
+	) ([]byte, error) {
 	//basic check
 	if mainTplFile == "" || pageFile == "" || data == nil {
 		return nil, errors.New("invalid parameter")
@@ -76,9 +69,7 @@ func (f *Tpl) ResetSharedTpl() {
 }
 
 //add shared tpl
-func (f *Tpl) AddSharedTpl(
-				tplFile string,
-			) error {
+func (f *Tpl) AddSharedTpl(tplFile string) error {
 	//basic check
 	if tplFile == "" {
 		return errors.New("invalid parameter")
@@ -102,10 +93,7 @@ func (f *Tpl) AddSharedTpl(
 
 //add extend func
 //used for dynamic tpl func
-func (f *Tpl) AddExtFunc(
-				tag string,
-				fun interface{},
-			) bool {
+func (f *Tpl) AddExtFunc(tag string, fun interface{}) bool {
 	//basic check
 	if tag == "" || fun == nil {
 		return false
@@ -126,11 +114,11 @@ func (f *Tpl) AddExtFunc(
 
 //generate static page file
 func (f *Tpl) genStaticPage(
-				subDir string,
-				pageFile string,
-				tpl *template.Template,
-				data interface{},
-			) ([]byte, error) {
+		subDir,
+		pageFile string,
+		tpl *template.Template,
+		data interface{},
+	) ([]byte, error) {
 	var (
 		pageFilePath string
 	)
@@ -171,9 +159,7 @@ func (f *Tpl) genStaticPage(
 }
 
 //parse tpl
-func (f *Tpl) parse(
-				mainTpl string,
-			) (*template.Template, error) {
+func (f *Tpl) parse(mainTpl string) (*template.Template, error) {
 	//init template
 	tpl := template.New(mainTpl)
 
@@ -197,11 +183,8 @@ func (f *Tpl) parse(
 	return tpl, nil
 }
 
-
 //add extend function map
-func (f *Tpl) addFuncMap(
-				tpl *template.Template,
-			) bool {
+func (f *Tpl) addFuncMap(tpl *template.Template) bool {
 	if f.extFuncMap == nil || len(f.extFuncMap) <= 0 {
 		return false
 	}
