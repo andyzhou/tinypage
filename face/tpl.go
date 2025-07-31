@@ -125,17 +125,15 @@ func (f *Tpl) genStaticPage(
 
 	//format page file path
 	if subDir != "" {
-		pageFilePath = fmt.Sprintf("%s/%s/%s%s",
+		pageFilePath = fmt.Sprintf("%s/%s/%s",
 							f.staticPath,
 							subDir,
 							pageFile,
-							define.StaticPageExt,
 						)
 	}else{
-		pageFilePath = fmt.Sprintf("%s/%s%s",
+		pageFilePath = fmt.Sprintf("%s/%s",
 							f.staticPath,
 							pageFile,
-							define.StaticPageExt,
 						)
 	}
 

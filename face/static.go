@@ -37,10 +37,7 @@ func (f *Static) GenPage(
 		tplFace iface.ITpl,
 	) ([]byte, error) {
 	//basic check
-	if tplFile == "" || pageFile == "" {
-		return nil, errors.New("invalid parameter")
-	}
-	if dataMap == nil || tplFace == nil {
+	if tplFile == "" || pageFile == "" || tplFace == nil {
 		return nil, errors.New("invalid parameter")
 	}
 

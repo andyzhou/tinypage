@@ -28,7 +28,6 @@
       <change beforePath="$PROJECT_DIR$/face/process.go" beforeDir="false" afterPath="$PROJECT_DIR$/face/process.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/face/static.go" beforeDir="false" afterPath="$PROJECT_DIR$/face/static.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/face/tpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/face/tpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/page.go" beforeDir="false" afterPath="$PROJECT_DIR$/page.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -40,6 +40,7 @@ type Process struct {
 	reqChan       chan tinyPageReq
 	closeChan     chan bool
 	autoCloseChan chan bool
+	sync.RWMutex
 }
 
 //construct
@@ -86,7 +87,7 @@ func (f *Process) GenPage(
 		m any = nil
 	)
 	//basic check
-	if tplFile == "" || pageFile == "" || dataMap == nil {
+	if tplFile == "" || pageFile == "" {
 		return errors.New("invalid parameter")
 	}
 	if !f.initDone {
@@ -126,7 +127,7 @@ func (f *Process) RegisterAutoGen(
 	}
 
 	//check and set default value
-	if rate < define.TinyPageAutoGenRate {
+	if rate <= 0 {
 		rate = define.TinyPageAutoGenRate
 	}
 
@@ -135,8 +136,10 @@ func (f *Process) RegisterAutoGen(
 		rate:rate,
 		fun:cb,
 	}
-	f.autoMap[tag] = autoGen
 	f.tickerMap.Store(tag, time.Now().Unix())
+	f.Lock()
+	defer f.Unlock()
+	f.autoMap[tag] = autoGen
 	return nil
 }
 
@@ -250,6 +253,8 @@ func (f *Process) autoGenProcess() bool {
 	now := time.Now().Unix()
 
 	//process one by one
+	f.Lock()
+	defer f.Unlock()
 	for tag, autoGen := range f.autoMap {
 		//get last ticker time
 		lastTime = f.getLastTickerTime(tag)
